@@ -30,6 +30,18 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+    
+        private void sendMsg(Message message, String name, String path) {
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(message.getChatId().toString());
+        sendPhoto.setReplyToMessageId(message.getMessageId());
+        try {
+            sendPhoto.setPhoto(name, new FileInputStream(new File(path)));
+            execute(sendPhoto);
+        } catch (FileNotFoundException | TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
